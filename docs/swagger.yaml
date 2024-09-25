@@ -1,0 +1,85 @@
+basePath: /api/v1
+definitions:
+  model.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: User APIs.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: User APIs
+  version: "1.0"
+paths:
+  /api/v1/users:
+    get:
+      description: Get Users with Page
+      produces:
+      - application/json
+      responses: {}
+      summary: Get Users with Page
+      tags:
+      - users
+    post:
+      description: Save user data in Db.
+      parameters:
+      - description: Create user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: Create user
+      tags:
+      - users
+  /api/v1/users/{userId}:
+    get:
+      description: Get User by Id
+      produces:
+      - application/json
+      responses: {}
+      summary: Get User by Id
+      tags:
+      - users
+    put:
+      description: Save user data in Db by Id.
+      parameters:
+      - description: Update user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: User user
+      tags:
+      - users
+schemes:
+- http
+swagger: "2.0"
