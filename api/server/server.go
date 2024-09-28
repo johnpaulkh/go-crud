@@ -39,10 +39,10 @@ func Initialize(config config.Configuration) {
 	repository := repository.NewUserRepository(client, &config)
 	userHandler := handler.NewUserHandler(client, &config, repository)
 
-	router.GET("/api/v1/users/:id", userHandler.Get)
-	router.GET("/api/v1/users", userHandler.List)
-	router.POST("/api/v1/users", userHandler.Create)
-	router.PUT("/api/v1/users/:id", userHandler.Update)
+	router.GET("/api/v1/users/:id", userHandler.GetUser)
+	router.GET("/api/v1/users", userHandler.ListUser)
+	router.POST("/api/v1/users", userHandler.CreateUser)
+	router.PUT("/api/v1/users/:id", userHandler.UpdateUser)
 
 	// PORT environment variable was defined.
 	formattedUrl := fmt.Sprintf(": %s", config.Server.Port)

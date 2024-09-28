@@ -21,10 +21,10 @@ type userHandler struct {
 }
 
 type UserHandler interface {
-	Create(*gin.Context)
-	Update(*gin.Context)
-	Get(*gin.Context)
-	List(*gin.Context)
+	CreateUser(*gin.Context)
+	UpdateUser(*gin.Context)
+	GetUser(*gin.Context)
+	ListUser(*gin.Context)
 }
 
 func NewUserHandler(client *mongo.Client, config *config.Configuration, repo repository.UserRepository) UserHandler {
@@ -37,14 +37,14 @@ func NewUserHandler(client *mongo.Client, config *config.Configuration, repo rep
 
 // CreateUser		godoc
 //
-//	@Summary		Create user
+//	@Summary		CreateUser user
 //	@Description	Save user data in Db.
-//	@Param			user	body	model.User	true	"Create user"
+//	@Param			user	body	model.User	true	"CreateUser user"
 //	@Produce		application/json
 //	@Tags			users
 //	@Success		200	{object}	model.User{}
 //	@Router			/api/v1/users [post]
-func (app *userHandler) Create(c *gin.Context) {
+func (app *userHandler) CreateUser(c *gin.Context) {
 	var request model.User
 
 	err := c.BindJSON(&request)
@@ -62,12 +62,12 @@ func (app *userHandler) Create(c *gin.Context) {
 
 // GetUserByID godoc
 //
-//	@Summary		Get User by Id
-//	@Description	Get User by Id
+//	@Summary		GetUser User by Id
+//	@Description	GetUser User by Id
 //	@Tags			users
 //	@Produce		json
 //	@Router			/api/v1/users/{userId} [get]
-func (app *userHandler) Get(c *gin.Context) {
+func (app *userHandler) GetUser(c *gin.Context) {
 	id := c.Param("id")
 
 	user, err := app.repo.Get(id, c)
@@ -82,12 +82,12 @@ func (app *userHandler) Get(c *gin.Context) {
 //
 //	@Summary		User user
 //	@Description	Save user data in Db by Id.
-//	@Param			user	body	model.User	true	"Update user"
+//	@Param			user	body	model.User	true	"UpdateUser user"
 //	@Produce		application/json
 //	@Tags			users
 //	@Success		200	{object}	model.User{}
 //	@Router			/api/v1/users/{userId} [put]
-func (app *userHandler) Update(c *gin.Context) {
+func (app *userHandler) UpdateUser(c *gin.Context) {
 	id := c.Param("id")
 
 	var request model.User
@@ -111,7 +111,7 @@ func (app *userHandler) Update(c *gin.Context) {
 //	@Tags			users
 //	@Produce		json
 //	@Router			/api/v1/users [get]
-func (app *userHandler) List(c *gin.Context) {
+func (app *userHandler) ListUser(c *gin.Context) {
 	page, err := strconv.Atoi(c.DefaultQuery("page", "0"))
 	if err != nil {
 		logrus.Error("Error during reading from param page", err)
